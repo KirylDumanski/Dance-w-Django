@@ -119,12 +119,18 @@ def index_types(request):
 
 
 def zodiacs_by_type(request, type_zodiac):
-    li_elements = ''
-    if type_zodiac in types:
-        for zodiac in types[type_zodiac]:
-            redirect_path = reverse('zodiac-info', args=[zodiac])
-            li_elements += f'<li> <a href="{redirect_path}"> {zodiac.title()} </a> </li>'
-        response = f"<ul> {li_elements} </ul>"
-        return HttpResponse(response)
-
-    return HttpResponseNotFound(f"Не найдена стихия: {type_zodiac}")
+    # li_elements = ''
+    # if type_zodiac in types:
+    #     for zodiac in types[type_zodiac]:
+    #         redirect_path = reverse('zodiac-info', args=[zodiac])
+    #         li_elements += f'<li> <a href="{redirect_path}"> {zodiac.title()} </a> </li>'
+    #     response = f"<ul> {li_elements} </ul>"
+    #     return HttpResponse(response)
+    #
+    # return HttpResponseNotFound(f"Не найдена стихия: {type_zodiac}")
+    zodiacs = types.get(type_zodiac)
+    context = {
+        'zodiacs': zodiacs,
+        'type_zodiac': type_zodiac
+    }
+    return render(request, 'horoscope/zodiacs_by_type.html', context=context)
