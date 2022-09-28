@@ -19,7 +19,13 @@ zodiac_dict = {
 
 # Create your views here.
 def index(request):
-    return HttpResponse('Вы попали на страницу приложения Гороскоп')
+    zodiacs = list(zodiac_dict)
+    li_elements = ''
+    for zodiac in zodiacs:
+        redirect_path = reverse('zodiac-info', args=[zodiac])
+        li_elements += f"<li> <a href='{redirect_path}'>{zodiac.title()}</a> </li>"
+    response = f'<ol>{li_elements}</ol>'
+    return HttpResponse(response)
 
 
 def get_info_about_zodiac(request, sign_zodiac: str):
