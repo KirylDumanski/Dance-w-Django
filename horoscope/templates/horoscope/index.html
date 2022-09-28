@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Меню</title>
-</head>
-<body>
-    <h1>Приложение "Гороскоп"</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+    Меню
+{% endblock %}
+
+{% block content %}
     <ul>
         {% for zodiac in zodiacs %}
             <li><a href="{% url 'zodiac-info' sign_zodiac=zodiac %}"> {{zodiac|title}} </a></li>
         {% endfor%}
     </ul>
-
-</body>
-</html>
+{% endblock %}
