@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'horoscope.apps.HoroscopeConfig',
     'week_days.apps.WeekDaysConfig',
+    'geometry.apps.GeometryConfig',
 ]
 
 MIDDLEWARE = [
