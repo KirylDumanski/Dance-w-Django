@@ -3,11 +3,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
 from django.urls import reverse
 
-
-def index(request):
-    return HttpResponse('Вы попали на страницу приложения Week days')
-
-
 days_of_week = [
     'monday',
     'tuesday',
@@ -17,6 +12,15 @@ days_of_week = [
     'saturday',
     'sunday'
 ]
+
+
+def index(request):
+    li_elements = ''
+    for day in days_of_week:
+        redirect_path = reverse('todo-list', args=[day])
+        li_elements += f'<li> <a href="{redirect_path}"> {day.title()} </a> </li>'
+    response = f'<ol> {li_elements} </ol>'
+    return HttpResponse(response)
 
 
 def todo_list(request, day_of_week: str):
