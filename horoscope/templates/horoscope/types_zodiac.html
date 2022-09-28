@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block content %}
+    {%include 'includes/navbar.html'%}
+
     <ul>
         {% for type in types_list %}
             <li><a href="{% url 'zodiacs-by-type' type_zodiac=type %}">{{type|title}}</a></li>
