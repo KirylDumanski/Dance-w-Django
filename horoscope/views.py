@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.shortcuts import render
 from django.urls import reverse
 
 zodiac_dict = {
@@ -65,19 +66,24 @@ types = {
 # Create your views here.
 def index(request):
     zodiacs = list(zodiac_dict)
-    li_elements = ''
-    for zodiac in zodiacs:
-        redirect_path = reverse('zodiac-info', args=[zodiac])
-        li_elements += f"<li> <a href='{redirect_path}'>{zodiac.title()}</a> </li>"
-    response = f'<ol>{li_elements}</ol>'
-    return HttpResponse(response)
+    # li_elements = ''
+    # for zodiac in zodiacs:
+    #     redirect_path = reverse('zodiac-info', args=[zodiac])
+    #     li_elements += f"<li> <a href='{redirect_path}'>{zodiac.title()}</a> </li>"
+    # response = f'<ol>{li_elements}</ol>'
+    context = {
+        'zodiacs': zodiacs
+    }
+    return render(request, 'horoscope/index.html', context=context)
 
 
 def get_info_about_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
-    if description:
-        return HttpResponse(description['desc'])
-    return HttpResponse(f'Неверный знак зодиака: {sign_zodiac}')
+    context = {
+        'description_zodiac': description['desc'] if description else description,
+        'sign': sign_zodiac
+    }
+    return render(request, 'horoscope/info_zodiac.html', context=context)
 
 
 def get_info_about_zodiac_by_number(request, zodiac_sign_number: int):
@@ -105,12 +111,11 @@ def get_info_about_zodiac_by_month_and_day(request, month, day):
 
 
 def index_types(request):
-    li_elements = ""
-    for type in types:
-        redirect_path = reverse('zodiacs-by-type', args=[type])
-        li_elements += f'<li> <a href="{redirect_path}"> {type.title()} </a> </li>'
-    response = f'<ul> {li_elements} </ul>'
-    return HttpResponse(response)
+    types_list = types
+    context = {
+        'types_list': types_list
+    }
+    return render(request, 'horoscope/types_zodiac.html', context=context)
 
 
 def zodiacs_by_type(request, type_zodiac):

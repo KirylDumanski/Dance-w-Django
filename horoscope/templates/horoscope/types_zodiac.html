@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Стихии знаков зодиака</title>
+</head>
+<body>
+    <ul>
+        {% for type in types_list %}
+            <li><a href="{% url 'zodiacs-by-type' type_zodiac=type %}">{{type|title}}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
