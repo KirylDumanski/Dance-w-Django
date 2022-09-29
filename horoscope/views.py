@@ -79,9 +79,11 @@ def index(request):
 
 def get_info_about_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
+    zodiacs = list(zodiac_dict)
     context = {
         'description_zodiac': description['desc'] if description else description,
-        'sign': sign_zodiac
+        'sign': sign_zodiac,
+        'zodiacs': zodiacs,
     }
     return render(request, 'horoscope/info_zodiac.html', context=context)
 
@@ -112,8 +114,10 @@ def get_info_about_zodiac_by_month_and_day(request, month, day):
 
 def index_types(request):
     types_list = types
+    zodiacs = list(zodiac_dict)
     context = {
-        'types_list': types_list
+        'types_list': types_list,
+        'zodiacs': zodiacs
     }
     return render(request, 'horoscope/types_zodiac.html', context=context)
 
@@ -128,9 +132,11 @@ def zodiacs_by_type(request, type_zodiac):
     #     return HttpResponse(response)
     #
     # return HttpResponseNotFound(f"Не найдена стихия: {type_zodiac}")
-    zodiacs = types.get(type_zodiac)
+    zodiacs_list = types.get(type_zodiac)
+    zodiacs = list(zodiac_dict)
     context = {
-        'zodiacs': zodiacs,
-        'type_zodiac': type_zodiac
+        'zodiacs_list': zodiacs_list,
+        'type_zodiac': type_zodiac,
+        'zodiacs': zodiacs
     }
     return render(request, 'horoscope/zodiacs_by_type.html', context=context)
