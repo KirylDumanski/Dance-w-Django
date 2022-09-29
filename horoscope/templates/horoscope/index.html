@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load tags_library %}
+
 {% load static %}
 {% block css_additional %}
     <link rel="stylesheet" href="{% static 'horoscope/css/index.css' %}">
@@ -12,8 +14,8 @@
 {% block content %}
     <h1>Приложение Гороскоп</h1>
     <ul>
-        {% for zodiac in zodiacs %}
-            <li><a href="{% url 'zodiac-info' sign_zodiac=zodiac %}"> {{zodiac|title}} </a></li>
+        {% for zodiac, value in zodiac_dict.items %}
+            <li><a href="{% url 'zodiac-info' sign_zodiac=zodiac %}"> {{value|description|split|first}} </a></li>
         {% endfor%}
     </ul>
 {% endblock %}

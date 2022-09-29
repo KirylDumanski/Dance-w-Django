@@ -7,13 +7,17 @@
 {% endblock %}
 
 {% block title %}
-  Знаки зодиака стихии {{type_zodiac|title}}
+  {% if zodiacs_list %}
+    Знаки зодиака стихии {{type_zodiac|title}}
+  {% else %}
+    Ошибка
+  {% endif %}
 {% endblock%}
 
 {% block content%}
   {% include 'includes/navbar.html'%}
 
-    {% if zodiacs%}
+    {% if zodiacs_list%}
       <h1>Знаки зодиака стихии {{type_zodiac|title}}</h1>
         <ul>
           {% for zodiac in zodiacs_list %}
@@ -21,6 +25,6 @@
           {% endfor %}
         </ul>
     {% else %}
-      <h1>Неверная стихия знаков зодиака - {{type_zodiac}}</h1>
+      <h1>Неверная стихия - {{type_zodiac}}</h1>
     {% endif %}
 {% endblock %}

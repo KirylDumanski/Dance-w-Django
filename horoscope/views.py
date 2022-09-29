@@ -66,24 +66,17 @@ types = {
 # Create your views here.
 def index(request):
     zodiacs = list(zodiac_dict)
-    # li_elements = ''
-    # for zodiac in zodiacs:
-    #     redirect_path = reverse('zodiac-info', args=[zodiac])
-    #     li_elements += f"<li> <a href='{redirect_path}'>{zodiac.title()}</a> </li>"
-    # response = f'<ol>{li_elements}</ol>'
     context = {
-        'zodiacs': zodiacs
+        'zodiac_dict': zodiac_dict
     }
     return render(request, 'horoscope/index.html', context=context)
 
 
 def get_info_about_zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
-    zodiacs = list(zodiac_dict)
     context = {
         'description_zodiac': description['desc'] if description else description,
-        'sign': sign_zodiac,
-        'zodiacs': zodiacs,
+        'zodiac_dict': zodiac_dict,
     }
     return render(request, 'horoscope/info_zodiac.html', context=context)
 
@@ -133,10 +126,8 @@ def zodiacs_by_type(request, type_zodiac):
     #
     # return HttpResponseNotFound(f"Не найдена стихия: {type_zodiac}")
     zodiacs_list = types.get(type_zodiac)
-    zodiacs = list(zodiac_dict)
     context = {
         'zodiacs_list': zodiacs_list,
         'type_zodiac': type_zodiac,
-        'zodiacs': zodiacs
     }
     return render(request, 'horoscope/zodiacs_by_type.html', context=context)
